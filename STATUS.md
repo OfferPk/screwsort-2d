@@ -1,37 +1,40 @@
 # ScrewSort 2D — STATUS
 
-**Status:** READY_FOR_QA  
-**Updated:** 2026-09-28T18:39:45+05:00 (PKT)  
+**Status:** SHIPPED  
+**Updated:** 2026-09-28T18:43:00+05:00 (PKT)  
 **Version:** 0.1.0  
 **Project ID:** `proj_screwsort_2d_001`  
 **Path:** `/workspace/factory/projects/screwsort-2d`  
-**Source SHA:** `5b1468c736d3411cfa72ca6a40db9bb89edf72f5` (`5b1468c`)  
+**Release source SHA:** `5b81833f9ec724c5b2c1daf53690f111a064f767` (`5b81833`, not amended)  
+**Release tip:** release-prep commit stacked on `5b81833`  
 **Pages base:** `/screwsort-2d/`
 
 ## Gates
 
 | Gate | Result |
 |------|--------|
-| QA | pending |
-| Security | pending |
+| QA | **PASS** — report: `QA-REPORT.md` |
+| Security | **PASS_WITH_NOTES** — clear to ship; no blockers; report: `SECURITY-REPORT.md` |
 | `npm test` | **13/13 passed** |
 | `npm run build` | **green** (Vite + TypeScript + PWA; base `/screwsort-2d/`) |
 
-## Scope shipped (MVP)
+## v0.1.0 release
 
-- Layered 2D screw-sort engine (NOT TubeSort tubes; NOT HexPour hexes; NOT 3D)
-- Cover/free hit-test via covers list + z-order paint
-- Dock capacity 5; match-3 clear; fail when dock full with no triple
-- Win: clear all screws from board + dock
-- 40 JSON levels (colors 3→6; density up)
-- Undo, hint (1 free then rewarded stub), level select
-- localStorage unlock / mute / adsRemoved
-- Ads stubs: interstitial (fail/win/restart), rewarded hint, remove-ads
-- Canvas flat hardware / candy-bolt geometric art (original)
-- PWA offline shell
-- README + GUIDE-roman-urdu.md + CHANGELOG 0.1.0
+ScrewSort 2D MVP: layered 2D screws with cover/free hit-testing, dock capacity 5 / match-3 clear, fail-on-full, win-on-empty, 40 JSON levels, undo, hint, level select, progress persistence, ads stubs, Canvas PWA offline shell, README, and Roman Urdu guide.
+
+Dual-clear: QA PASS + Security PASS_WITH_NOTES. Security findings are non-blocking notes (local progress range hardening, `.env*` ignore hygiene, dev-only Vitest audit findings, and host CSP guidance). **No security code edits were made.**
+
+## Deployment
+
+- Repository: https://github.com/OfferPk/screwsort-2d
+- Release: https://github.com/OfferPk/screwsort-2d/releases/tag/v0.1.0
+- GitHub Pages: https://offerpk.github.io/screwsort-2d/
+- GitHub Pages base: `/screwsort-2d/`
+- Deployment branch: `gh-pages`
+- `.nojekyll`: included for Pages
 
 ## Notes
 
-- No git push until QA/Security gates
-- Standby FAIL-only for follow-ups
+- Original flat hardware / candy-bolt theme; not TubeSort, HexPour, or 3D Screw Out.
+- No real AdMob or IAP keys; ads and remove-ads are stubs.
+- Keep `base: '/screwsort-2d/'` in `vite.config.ts`.
