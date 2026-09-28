@@ -1,0 +1,240 @@
+:root {
+  --bg: #1a2433;
+  --bg2: #243044;
+  --cream: #e8eef6;
+  --gold: #f5c542;
+  --text: #e8eef6;
+  --muted: #8a9bb0;
+  --accent: #4aa3ff;
+  --accent2: #ff8c42;
+  --panel: #2c3c52;
+  --danger: #e85d5d;
+  --ok: #3ecf8e;
+  --radius: 14px;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+#app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 520px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.screen {
+  display: none;
+  flex-direction: column;
+  height: 100%;
+  padding: 12px 14px env(safe-area-inset-bottom, 12px);
+}
+.screen.active { display: flex; }
+
+h1 {
+  font-size: 1.85rem;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+}
+h2 { font-size: 1.15rem; color: var(--cream); }
+
+.tagline {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin-top: 6px;
+  max-width: 32ch;
+  line-height: 1.35;
+}
+
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 4px;
+}
+
+.logo-bolt {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, #7ec0ff, #4aa3ff 45%, #2a6fb8 100%);
+  box-shadow: 0 6px 0 #1e4a7a, 0 10px 24px rgba(0,0,0,0.35);
+  position: relative;
+  margin-bottom: 8px;
+}
+.logo-bolt::after {
+  content: "";
+  position: absolute;
+  inset: 22%;
+  background: #1a2433;
+  clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+  opacity: 0.85;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+  padding-bottom: 8px;
+}
+
+.btn {
+  appearance: none;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--accent);
+  color: #0d1826;
+  transition: transform 0.08s, opacity 0.15s;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.45; cursor: default; }
+.btn.secondary {
+  background: var(--panel);
+  color: var(--cream);
+  border: 1px solid #3a4d66;
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid #3a4d66;
+}
+.btn.block { width: 100%; }
+.btn.icon { padding: 10px 14px; min-width: 44px; }
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.bar h2 { flex: 1; text-align: center; }
+
+.level-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  overflow: auto;
+  padding-bottom: 12px;
+}
+.lvl {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  background: var(--panel);
+  color: var(--cream);
+  border: 1px solid #3a4d66;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.lvl.locked {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.canvas-wrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+.game-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 12px;
+  touch-action: none;
+}
+
+.tools {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.tools .btn { flex: 1; }
+
+.end-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+}
+.end-card.fail h1 { color: var(--danger); }
+.end-card h1 { color: var(--ok); }
+
+.overlay {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 12, 20, 0.72);
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  padding: 20px;
+}
+.overlay.open { display: flex; }
+.modal {
+  background: var(--bg2);
+  border: 1px solid #3a4d66;
+  border-radius: 16px;
+  padding: 18px;
+  width: min(360px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ad-stub {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+.ad-stub strong {
+  display: block;
+  color: var(--gold);
+  margin-bottom: 6px;
+  font-size: 1.05rem;
+}
+
+.toast {
+  position: absolute;
+  left: 50%;
+  bottom: 88px;
+  transform: translateX(-50%) translateY(12px);
+  background: #0d1826;
+  color: var(--cream);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  border: 1px solid #3a4d66;
+  z-index: 30;
+  white-space: nowrap;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
