@@ -54,11 +54,21 @@ function drawBolt(
   y: number,
   r: number,
   color: ScrewColor,
-  opts: { free: boolean; hint: boolean; dim: boolean },
+  opts: { free: boolean; hint: boolean; dim: boolean; focused: boolean },
 ): void {
   const hex = COLOR_HEX[color];
   ctx.save();
   ctx.translate(x, y);
+
+  if (opts.focused) {
+    ctx.beginPath();
+    ctx.arc(0, 0, r + 8, 0, Math.PI * 2);
+    ctx.strokeStyle = '#f5c542';
+    ctx.lineWidth = 3;
+    ctx.setLineDash([4, 3]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
 
   if (opts.hint) {
     ctx.beginPath();
@@ -145,6 +155,7 @@ export function drawBoard(
   state: GameState,
   layout: BoardLayout,
   hintId: string | null,
+  focusedId: string | null = null,
 ): void {
   const { scale, offsetX, offsetY, canvasW, canvasH, dockY } = layout;
   ctx.clearRect(0, 0, canvasW, canvasH);
@@ -179,7 +190,7 @@ export function drawBoard(
       offsetY + s.y * scale,
       SCREW_RADIUS * scale,
       s.color,
-      { free, hint: hintId === s.id, dim: !free },
+      { free, hint: hintId === s.id, dim: !free, focused: focusedId === s.id },
     );
   }
 
@@ -218,6 +229,7 @@ export function drawBoard(
         free: true,
         hint: false,
         dim: false,
+        focused: false,
       });
     }
   }
